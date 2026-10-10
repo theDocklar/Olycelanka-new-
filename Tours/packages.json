@@ -1,0 +1,479 @@
+[
+  {
+    "_id": "curated-cultural-triangle-ancient-kingdoms",
+    "name": "Cultural Triangle & Ancient Kingdoms",
+    "slug": "cultural-triangle-ancient-kingdoms",
+    "duration": "7 days / 6 nights",
+    "category": "Culture",
+    "priceStandard": 790,
+    "pricePremium": 1190,
+    "description": "A private journey through rock fortresses, sacred caves and ancient capitals, with time for village cooking and lakeside evenings. Fully customisable. Final dates, accommodation and inclusions require a personalised quote.",
+    "images": [
+      {
+        "asset": {
+          "_id": "cultural-triangle-ancient-kingdoms-0",
+          "url": "/images/mike-swigunski-zDDQZgZjFtM-unsplash.jpg"
+        }
+      },
+      {
+        "asset": {
+          "_id": "cultural-triangle-ancient-kingdoms-1",
+          "url": "/images/chathura-anuradha-subasinghe-40uQmE9Zq8g-unsplash.jpg"
+        }
+      },
+      {
+        "asset": {
+          "_id": "cultural-triangle-ancient-kingdoms-2",
+          "url": "/images/shashank-hudkar-KYBc1eq0dJo-unsplash.jpg"
+        }
+      }
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1 · Negombo",
+        "description": "Arrive at the airport and settle into Negombo. Enjoy a relaxed lagoon-side evening."
+      },
+      {
+        "day": "Day 2 · Sigiriya",
+        "description": "Travel to Sigiriya with an afternoon at leisure after the drive."
+      },
+      {
+        "day": "Day 3 · Sigiriya",
+        "description": "Climb Sigiriya early, followed by a hosted village lunch and a Sri Lankan cooking session."
+      },
+      {
+        "day": "Day 4 · Polonnaruwa",
+        "description": "Explore the ancient city at your own pace with a local guide; return to Sigiriya."
+      },
+      {
+        "day": "Day 5 · Kandy",
+        "description": "Visit Dambulla cave temples en route to Kandy. Take a gentle lakeside walk."
+      },
+      {
+        "day": "Day 6 · Kandy",
+        "description": "Visit the Temple of the Tooth and Peradeniya Botanical Gardens."
+      },
+      {
+        "day": "Day 7 · Airport",
+        "description": "Return to the airport with departure timing planned around the drive."
+      }
+    ],
+    "included": [
+      "Proposed private airport transfers and air-conditioned transport along the itinerary",
+      "Proposed English-speaking driver-guide",
+      "Proposed accommodation for 6 nights with daily breakfast",
+      "Listed guided visits and experiences, subject to confirmation in the final quote"
+    ],
+    "notIncluded": [
+      "International flights, visas and travel insurance",
+      "Lunches and dinners unless specifically listed",
+      "Optional activities, personal expenses and gratuities",
+      "Any service not confirmed in your final personalised quote"
+    ],
+    "standardHotel": {
+      "name": "Handpicked comfort stays",
+      "category": "Proposed Standard",
+      "description": "Locally run guesthouses and comfortable small hotels; exact properties confirmed with your quote."
+    },
+    "premiumHotel": {
+      "name": "Boutique & elevated stays",
+      "category": "Proposed Premium",
+      "description": "Characterful boutique hotels and upgraded rooms where available; exact properties confirmed with your quote."
+    },
+    "ratings": {
+      "pace": 3,
+      "comfort": 4,
+      "culture": 5,
+      "wildlife": 2,
+      "adventure": 3
+    },
+    "featured": false
+  },
+  {
+    "_id": "curated-tea-trails-ella-highlands",
+    "name": "Tea Trails & Ella Highlands",
+    "slug": "tea-trails-ella-highlands",
+    "duration": "7 days / 6 nights",
+    "category": "Hill Country",
+    "priceStandard": 690,
+    "pricePremium": 1050,
+    "description": "Cool mornings, tea country and unhurried hill walks: a scenic escape designed for travellers who love landscapes and local flavours. Fully customisable. Final dates, accommodation and inclusions require a personalised quote.",
+    "images": [
+      {
+        "asset": {
+          "_id": "tea-trails-ella-highlands-0",
+          "url": "/images/hendrik-cornelissen-jpTT_SAU034-unsplash.jpg"
+        }
+      },
+      {
+        "asset": {
+          "_id": "tea-trails-ella-highlands-1",
+          "url": "/images/Ella-Rock-view.jpg"
+        }
+      },
+      {
+        "asset": {
+          "_id": "tea-trails-ella-highlands-2",
+          "url": "/images/chathura-anuradha-subasinghe-40uQmE9Zq8g-unsplash.jpg"
+        }
+      }
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1 · Kandy",
+        "description": "Airport welcome and private transfer to Kandy; relax after your journey."
+      },
+      {
+        "day": "Day 2 · Nuwara Eliya",
+        "description": "Visit a working tea estate on the drive into the hills, with a tasting and overnight in Nuwara Eliya."
+      },
+      {
+        "day": "Day 3 · Nuwara Eliya",
+        "description": "Enjoy a relaxed day among gardens and tea country, with an optional guided countryside walk."
+      },
+      {
+        "day": "Day 4 · Ella",
+        "description": "Take the scenic train from Nanu Oya to Ella, subject to availability; private road transfer is the alternative."
+      },
+      {
+        "day": "Day 5 · Ella",
+        "description": "Walk to Little Adam’s Peak and visit Nine Arch Bridge; allow time for a café lunch."
+      },
+      {
+        "day": "Day 6 · Colombo",
+        "description": "Return by road to Colombo with comfort stops and an overnight city stay."
+      },
+      {
+        "day": "Day 7 · Airport",
+        "description": "Enjoy a relaxed breakfast before your airport transfer."
+      }
+    ],
+    "included": [
+      "Proposed private airport transfers and air-conditioned transport along the itinerary",
+      "Proposed English-speaking driver-guide",
+      "Proposed accommodation for 6 nights with daily breakfast",
+      "Listed guided visits and experiences, subject to confirmation in the final quote"
+    ],
+    "notIncluded": [
+      "International flights, visas and travel insurance",
+      "Lunches and dinners unless specifically listed",
+      "Optional activities, personal expenses and gratuities",
+      "Any service not confirmed in your final personalised quote"
+    ],
+    "standardHotel": {
+      "name": "Handpicked comfort stays",
+      "category": "Proposed Standard",
+      "description": "Locally run guesthouses and comfortable small hotels; exact properties confirmed with your quote."
+    },
+    "premiumHotel": {
+      "name": "Boutique & elevated stays",
+      "category": "Proposed Premium",
+      "description": "Characterful boutique hotels and upgraded rooms where available; exact properties confirmed with your quote."
+    },
+    "ratings": {
+      "pace": 2,
+      "comfort": 4,
+      "culture": 3,
+      "wildlife": 2,
+      "adventure": 4
+    },
+    "featured": false
+  },
+  {
+    "_id": "curated-southern-shores-galle-escape",
+    "name": "Southern Shores & Galle Escape",
+    "slug": "southern-shores-galle-escape",
+    "duration": "6 days / 5 nights",
+    "category": "Beach",
+    "priceStandard": 590,
+    "pricePremium": 950,
+    "description": "A laid-back coastal break pairing Galle’s historic lanes with ocean views, a cooking experience and plenty of time to do very little. Fully customisable. Final dates, accommodation and inclusions require a personalised quote.",
+    "images": [
+      {
+        "asset": {
+          "_id": "southern-shores-galle-escape-0",
+          "url": "/images/ishan-kahapola-arachchi-5wpeSsXZ93s-unsplash.jpg"
+        }
+      },
+      {
+        "asset": {
+          "_id": "southern-shores-galle-escape-1",
+          "url": "/images/etienne-boulanger-J7LiHL7jAgU-unsplash.jpg"
+        }
+      }
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1 · Galle",
+        "description": "Meet your driver at the airport and travel to Galle; settle into your coastal stay."
+      },
+      {
+        "day": "Day 2 · Galle",
+        "description": "Take a guided Galle Fort walk, explore independent cafés and enjoy sunset on the ramparts."
+      },
+      {
+        "day": "Day 3 · Mirissa",
+        "description": "Continue along the coast to Mirissa, stopping for a local lunch and beach time."
+      },
+      {
+        "day": "Day 4 · Mirissa",
+        "description": "Enjoy a free beach day with an optional beginner surf lesson in Weligama, subject to conditions."
+      },
+      {
+        "day": "Day 5 · Mirissa",
+        "description": "Join a Sri Lankan cooking experience, followed by a free afternoon by the sea."
+      },
+      {
+        "day": "Day 6 · Airport",
+        "description": "Return to the airport by private vehicle, allowing sufficient time for your flight."
+      }
+    ],
+    "included": [
+      "Proposed private airport transfers and air-conditioned transport along the itinerary",
+      "Proposed English-speaking driver-guide",
+      "Proposed accommodation for 5 nights with daily breakfast",
+      "Listed guided visits and experiences, subject to confirmation in the final quote"
+    ],
+    "notIncluded": [
+      "International flights, visas and travel insurance",
+      "Lunches and dinners unless specifically listed",
+      "Optional activities, personal expenses and gratuities",
+      "Any service not confirmed in your final personalised quote"
+    ],
+    "standardHotel": {
+      "name": "Handpicked comfort stays",
+      "category": "Proposed Standard",
+      "description": "Locally run guesthouses and comfortable small hotels; exact properties confirmed with your quote."
+    },
+    "premiumHotel": {
+      "name": "Boutique & elevated stays",
+      "category": "Proposed Premium",
+      "description": "Characterful boutique hotels and upgraded rooms where available; exact properties confirmed with your quote."
+    },
+    "ratings": {
+      "pace": 1,
+      "comfort": 5,
+      "culture": 3,
+      "wildlife": 2,
+      "adventure": 2
+    },
+    "featured": false
+  },
+  {
+    "_id": "curated-wild-south-safari-seaside",
+    "name": "Wild South: Safari & Seaside",
+    "slug": "wild-south-safari-seaside",
+    "duration": "8 days / 7 nights",
+    "category": "Wildlife",
+    "priceStandard": 850,
+    "pricePremium": 1290,
+    "description": "From Ella’s green hills to a Yala jeep safari and the southern coast, this nature-focused journey balances early adventures with quiet afternoons. Wildlife sightings are never guaranteed. Fully customisable. Final dates, accommodation and inclusions require a personalised quote.",
+    "images": [
+      {
+        "asset": {
+          "_id": "wild-south-safari-seaside-0",
+          "url": "/images/Ella-Rock-view.jpg"
+        }
+      },
+      {
+        "asset": {
+          "_id": "wild-south-safari-seaside-1",
+          "url": "/images/ishan-kahapola-arachchi-5wpeSsXZ93s-unsplash.jpg"
+        }
+      },
+      {
+        "asset": {
+          "_id": "wild-south-safari-seaside-2",
+          "url": "/images/etienne-boulanger-J7LiHL7jAgU-unsplash.jpg"
+        }
+      }
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1 · Colombo",
+        "description": "Airport welcome and an overnight in Colombo to rest before the journey inland."
+      },
+      {
+        "day": "Day 2 · Ella",
+        "description": "Travel into the highlands by road, with scenic stops and an overnight in Ella."
+      },
+      {
+        "day": "Day 3 · Ella",
+        "description": "Visit Nine Arch Bridge and take an optional guided hill walk matched to your fitness."
+      },
+      {
+        "day": "Day 4 · Tissamaharama",
+        "description": "Travel south to Tissamaharama and relax before the early safari start."
+      },
+      {
+        "day": "Day 5 · Yala",
+        "description": "Take one guided jeep safari in an open Yala sector, subject to park access; spend the afternoon at leisure."
+      },
+      {
+        "day": "Day 6 · Tangalle",
+        "description": "Travel to Tangalle for coastal scenery and a relaxed afternoon."
+      },
+      {
+        "day": "Day 7 · Galle",
+        "description": "Explore Galle Fort with a local guide and stay overnight on the coast."
+      },
+      {
+        "day": "Day 8 · Airport",
+        "description": "Private airport transfer with departure time matched to your flight."
+      }
+    ],
+    "included": [
+      "Proposed private airport transfers and air-conditioned transport along the itinerary",
+      "Proposed English-speaking driver-guide",
+      "Proposed accommodation for 7 nights with daily breakfast",
+      "Listed guided visits and experiences, subject to confirmation in the final quote",
+      "One proposed Yala jeep safari with park entry, subject to park access and final confirmation"
+    ],
+    "notIncluded": [
+      "International flights, visas and travel insurance",
+      "Lunches and dinners unless specifically listed",
+      "Optional activities, personal expenses and gratuities",
+      "Any service not confirmed in your final personalised quote"
+    ],
+    "standardHotel": {
+      "name": "Handpicked comfort stays",
+      "category": "Proposed Standard",
+      "description": "Locally run guesthouses and comfortable small hotels; exact properties confirmed with your quote."
+    },
+    "premiumHotel": {
+      "name": "Boutique & elevated stays",
+      "category": "Proposed Premium",
+      "description": "Characterful boutique hotels and upgraded rooms where available; exact properties confirmed with your quote."
+    },
+    "ratings": {
+      "pace": 3,
+      "comfort": 3,
+      "culture": 2,
+      "wildlife": 5,
+      "adventure": 4
+    },
+    "featured": false
+  },
+  {
+    "_id": "curated-sri-lanka-signature",
+    "name": "Sri Lanka Signature: Island in Slow Motion",
+    "slug": "sri-lanka-signature",
+    "duration": "12 days / 11 nights",
+    "category": "Signature",
+    "priceStandard": 1490,
+    "pricePremium": 2290,
+    "description": "Our complete first-time journey: ancient heritage, tea-covered hills, an Ella escape and a gentle south-coast finish, with private transfers and room to linger. Fully customisable. Final dates, accommodation and inclusions require a personalised quote.",
+    "images": [
+      {
+        "asset": {
+          "_id": "sri-lanka-signature-0",
+          "url": "/images/mike-swigunski-zDDQZgZjFtM-unsplash.jpg"
+        }
+      },
+      {
+        "asset": {
+          "_id": "sri-lanka-signature-1",
+          "url": "/images/hendrik-cornelissen-jpTT_SAU034-unsplash.jpg"
+        }
+      },
+      {
+        "asset": {
+          "_id": "sri-lanka-signature-2",
+          "url": "/images/Ella-Rock-view.jpg"
+        }
+      },
+      {
+        "asset": {
+          "_id": "sri-lanka-signature-3",
+          "url": "/images/ishan-kahapola-arachchi-5wpeSsXZ93s-unsplash.jpg"
+        }
+      },
+      {
+        "asset": {
+          "_id": "sri-lanka-signature-4",
+          "url": "/images/chathura-anuradha-subasinghe-40uQmE9Zq8g-unsplash.jpg"
+        }
+      }
+    ],
+    "itinerary": [
+      {
+        "day": "Day 1 · Negombo",
+        "description": "Arrive and unwind in Negombo after your private airport transfer."
+      },
+      {
+        "day": "Day 2 · Sigiriya",
+        "description": "Travel to Sigiriya and enjoy a quiet afternoon at your hotel."
+      },
+      {
+        "day": "Day 3 · Sigiriya",
+        "description": "Explore Sigiriya rock fortress early and share a village-style lunch."
+      },
+      {
+        "day": "Day 4 · Kandy",
+        "description": "Visit Dambulla cave temples on the way to Kandy; evening lakeside stroll."
+      },
+      {
+        "day": "Day 5 · Kandy",
+        "description": "Discover the Temple of the Tooth and Peradeniya Botanical Gardens."
+      },
+      {
+        "day": "Day 6 · Nuwara Eliya",
+        "description": "Drive through tea country, stopping at a tea estate for a tasting."
+      },
+      {
+        "day": "Day 7 · Ella",
+        "description": "Scenic Nanu Oya–Ella train journey if available, with road transfer as an alternative."
+      },
+      {
+        "day": "Day 8 · Ella",
+        "description": "Explore Nine Arch Bridge and Little Adam’s Peak, or choose a leisurely café afternoon."
+      },
+      {
+        "day": "Day 9 · Galle",
+        "description": "Travel to the south coast with comfort stops; settle in near Galle."
+      },
+      {
+        "day": "Day 10 · Galle",
+        "description": "Enjoy a guided Galle Fort walk and an afternoon by the ocean."
+      },
+      {
+        "day": "Day 11 · Galle",
+        "description": "A free coastal day; optional cooking class or beginner surf lesson can be arranged."
+      },
+      {
+        "day": "Day 12 · Airport",
+        "description": "Depart with a private airport transfer timed to your flight."
+      }
+    ],
+    "included": [
+      "Proposed private airport transfers and air-conditioned transport along the itinerary",
+      "Proposed English-speaking driver-guide",
+      "Proposed accommodation for 11 nights with daily breakfast",
+      "Listed guided visits and experiences, subject to confirmation in the final quote"
+    ],
+    "notIncluded": [
+      "International flights, visas and travel insurance",
+      "Lunches and dinners unless specifically listed",
+      "Optional activities, personal expenses and gratuities",
+      "Any service not confirmed in your final personalised quote"
+    ],
+    "standardHotel": {
+      "name": "Handpicked comfort stays",
+      "category": "Proposed Standard",
+      "description": "Locally run guesthouses and comfortable small hotels; exact properties confirmed with your quote."
+    },
+    "premiumHotel": {
+      "name": "Boutique & elevated stays",
+      "category": "Proposed Premium",
+      "description": "Characterful boutique hotels and upgraded rooms where available; exact properties confirmed with your quote."
+    },
+    "ratings": {
+      "pace": 2,
+      "comfort": 5,
+      "culture": 5,
+      "wildlife": 4,
+      "adventure": 4
+    },
+    "featured": true
+  }
+]

@@ -46,7 +46,7 @@ export default function JourneysSection({ packages = [] }: { packages?: Destinat
             const url = imageUrl(p.images?.[0])
             return (
               <article key={p._id} className="flex flex-col">
-                <Link href={`/tour/${p.slug}`} className="relative block aspect-[4/5] overflow-hidden bg-[var(--olyce-surface)] mb-5 group">
+                <Link href={`/tour/${p.slug}`} className="relative block aspect-[4/5] overflow-hidden rounded-3xl bg-[var(--olyce-surface)] mb-5 group">
                   {url ? (
                     <Image
                       src={url}

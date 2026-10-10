@@ -90,7 +90,7 @@ export default function PackageDetailView({ packageData }: { packageData: Packag
         </Link>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
           <div>
-            <div className="relative w-full aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5] overflow-hidden bg-surface-container">
+            <div className="relative w-full aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5] overflow-hidden rounded-3xl bg-surface-container">
               {gallery[activeImage] ? (
                 <Image
                   key={gallery[activeImage]}

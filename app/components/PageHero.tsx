@@ -16,7 +16,7 @@ export default function PageHero({
   imageAlt,
 }: PageHeroProps) {
   return (
-    <section className="relative w-full min-h-[320px] h-[42vh] sm:min-h-[380px] sm:h-[48vh] max-h-[560px] overflow-hidden mt-[64px] sm:mt-[72px]">
+    <section className="relative w-[calc(100%-1.5rem)] sm:w-[calc(100%-2rem)] mx-auto min-h-[320px] h-[42vh] sm:min-h-[380px] sm:h-[48vh] max-h-[560px] overflow-hidden rounded-[24px] sm:rounded-[32px] mt-[64px] sm:mt-[72px]">
       <Image
         src={imageSrc}
         alt={imageAlt}

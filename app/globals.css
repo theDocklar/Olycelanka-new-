@@ -499,3 +499,8 @@ video {
 }
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Rounded corners on all photography */
+main img {
+  border-radius: 1rem;
+}

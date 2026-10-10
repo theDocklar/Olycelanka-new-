@@ -10,6 +10,7 @@ type HeroTour = {
   slug: string
   duration: string
   category?: string | null
+  description?: string
   image?: string | null
 }
 
@@ -39,7 +40,8 @@ export default function HeroSection({ featured }: { featured?: HeroTour }) {
   }, [])
 
   return (
-    <section className="relative w-full h-[100svh] min-h-[600px] overflow-hidden bg-[#0a1614]">
+    <section className="relative w-full h-[100svh] min-h-[600px] bg-[var(--olyce-bg)] p-3 sm:p-4">
+      <div className="relative h-full w-full overflow-hidden rounded-[24px] sm:rounded-[32px] bg-[#0a1614]">
       <div
         className={`absolute inset-0 transition-opacity duration-700 ${videoLoaded && !videoError ? 'opacity-0' : 'opacity-100'}`}
       >
@@ -89,18 +91,24 @@ export default function HeroSection({ featured }: { featured?: HeroTour }) {
       {featured ? (
         <Link
           href={`/tour/${featured.slug}`}
-          className="absolute z-20 left-5 sm:left-8 bottom-24 sm:bottom-8 w-[200px] sm:w-[230px] bg-[#0f1f1c]/90 backdrop-blur border border-white/10 p-3 hover:border-[#d6a95c] transition-colors"
+          className="absolute z-20 left-4 sm:left-8 bottom-24 sm:bottom-8 w-[230px] sm:w-[270px] rounded-2xl bg-[#0f1f1c]/90 backdrop-blur border border-white/10 p-3 hover:border-[#d6a95c] transition-colors"
         >
-          <p className="text-[10px] text-[#b9b6aa] leading-tight">Tour of the month</p>
-          <p className="text-[13px] text-[#f2efe6] mt-1 mb-2">{featured.name}</p>
+          <p className="text-[10px] uppercase tracking-[0.08em] text-[#d6a95c] leading-tight">Tour of the month</p>
+          <p className="text-[15px] text-[#f2efe6] mt-1 mb-2 leading-snug">{featured.name}</p>
           {featured.image ? (
-            <div className="relative aspect-[16/10] w-full mb-2 overflow-hidden">
-              <Image src={featured.image} alt={featured.name} fill className="object-cover" sizes="230px" />
+            <div className="relative aspect-[16/10] w-full mb-2 overflow-hidden rounded-xl">
+              <Image src={featured.image} alt={featured.name} fill className="object-cover" sizes="270px" />
             </div>
           ) : null}
-          <p className="text-[10px] text-[#b9b6aa]">
-            {featured.duration}
-            {featured.category ? ` · ${featured.category}` : ''}
+          {featured.description ? (
+            <p className="text-[11px] leading-[1.5] text-[#b9b6aa] line-clamp-2 mb-2">{featured.description}</p>
+          ) : null}
+          <p className="flex items-center justify-between text-[11px] text-[#f2efe6]">
+            <span>
+              {featured.duration}
+              {featured.category ? ` · ${featured.category}` : ''}
+            </span>
+            <span aria-hidden>→</span>
           </p>
         </Link>
       ) : null}
@@ -109,6 +117,7 @@ export default function HeroSection({ featured }: { featured?: HeroTour }) {
         <Link href="/tours" className="text-[12px] text-[#f2efe6] border-b border-[#f2efe6]/50 pb-1 hover:text-[#d6a95c] hover:border-[#d6a95c] transition-colors whitespace-nowrap">
           Start Your Journey
         </Link>
+      </div>
       </div>
     </section>
   )

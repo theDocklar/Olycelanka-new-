@@ -31,6 +31,7 @@ export interface Package {
   premiumHotel?: Hotel
   mapImage?: { _id: string; url: string }
   ratings?: Partial<Record<'pace' | 'comfort' | 'culture' | 'wildlife' | 'adventure', number>>
+  featured?: boolean
 }
 
 const curatedPackages: Package[] = curatedPackageData

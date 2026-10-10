@@ -57,7 +57,7 @@ export default function Preloader() {
           {COLLAGE.map((c, i) => (
             <motion.div
               key={c.src}
-              className={`absolute overflow-hidden ${c.className}`}
+              className={`absolute overflow-hidden rounded-2xl ${c.className}`}
               initial={{ opacity: 0, y: 30, scale: 0.96 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, scale: 1.05 }}

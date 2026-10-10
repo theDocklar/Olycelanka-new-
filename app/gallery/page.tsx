@@ -45,7 +45,7 @@ export default async function GalleryPage() {
         <section className="w-full py-12 sm:py-16">
           <div className="max-w-[1280px] mx-auto px-5 sm:px-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
             {images.map(({ src, alt }, i) => (
-              <div key={`${src}-${i}`} className="relative aspect-square overflow-hidden rounded-[4px] bg-[var(--olyce-surface)]">
+              <div key={`${src}-${i}`} className="relative aspect-square overflow-hidden rounded-2xl bg-[var(--olyce-surface)]">
                 <Image
                   src={src}
                   alt={alt}

@@ -72,7 +72,7 @@ export default function DestinationsCarousel({
         type="button"
         onClick={() => go(dir)}
         aria-label={`Show ${d.name}`}
-        className="hidden md:block relative w-[16%] aspect-[3/4] opacity-45 hover:opacity-80 transition-opacity overflow-hidden bg-[var(--olyce-surface)] self-center"
+        className="hidden md:block relative w-[16%] aspect-[3/4] opacity-45 hover:opacity-80 transition-opacity overflow-hidden rounded-3xl bg-[var(--olyce-surface)] self-center"
       >
         {url ? <Image src={url} alt="" fill className="object-cover" sizes="15vw" /> : null}
       </button>
@@ -113,7 +113,7 @@ export default function DestinationsCarousel({
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0.2}
             onDragEnd={onDragEnd}
-            className="relative w-full md:w-[30%] aspect-[3/4] max-w-[420px] cursor-grab active:cursor-grabbing"
+            className="relative w-full md:w-[30%] aspect-[3/4] max-w-[420px] rounded-3xl cursor-grab active:cursor-grabbing"
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -122,7 +122,7 @@ export default function DestinationsCarousel({
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.02 }}
                 transition={{ duration: 0.35 }}
-                className="absolute inset-0 overflow-hidden bg-[var(--olyce-surface)]"
+                className="absolute inset-0 overflow-hidden rounded-3xl bg-[var(--olyce-surface)]"
               >
                 {imgUrl ? (
                   <Image src={imgUrl} alt={current.name} fill priority className="object-cover pointer-events-none" sizes="(max-width: 768px) 90vw, 30vw" />
