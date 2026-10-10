@@ -13,7 +13,7 @@ const steps = [
 export default function EditPage() {
   return (
     <div className="olyce-home">
-      <main className="grow bg-white pb-16 sm:pb-24">
+      <main className="grow bg-[var(--olyce-bg)] pb-16 sm:pb-24">
         <PageHero
           eyebrow="The Edit"
           title="How It Works"
@@ -26,7 +26,7 @@ export default function EditPage() {
           <div className="max-w-[1280px] mx-auto px-5 sm:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-8">
               {steps.map((step) => (
-                <div key={step.id} className="text-center px-4 bg-white/70 rounded-[10px] py-8 sm:py-10">
+                <div key={step.id} className="text-center px-4 bg-[var(--olyce-surface)]/60 rounded-[4px] py-8 sm:py-10">
                   <div className="mx-auto mb-5 w-14 h-14 sm:w-16 sm:h-16 rounded-[10px] bg-[var(--gsm-teal)]/10 text-[var(--gsm-teal)] flex items-center justify-center">
                     <step.icon className="w-6 h-6 sm:w-7 sm:h-7" strokeWidth={1.5} />
                   </div>
@@ -42,7 +42,7 @@ export default function EditPage() {
             </div>
 
             <div className="text-center mt-10 sm:mt-14">
-              <Link href="/#featured" className="btn-gold">
+              <Link href="/tours" className="btn-gold">
                 Browse Tours <span aria-hidden>→</span>
               </Link>
             </div>

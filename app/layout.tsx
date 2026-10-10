@@ -2,17 +2,28 @@ import './globals.css'
 
 import {SpeedInsights} from '@vercel/speed-insights/next'
 import type {Metadata} from 'next'
-import {Inter, IBM_Plex_Mono, Manrope, Playfair_Display, Lato, Heebo} from 'next/font/google'
+import {Inter, IBM_Plex_Mono, Manrope, Playfair_Display, Lato, Heebo, Instrument_Serif} from 'next/font/google'
 
 import Navbar from './components/Navbar'
 import FloatingInquireButton from './components/FloatingInquireButton'
 import {ThemeProvider} from './components/ThemeProvider'
+import Preloader from './components/Preloader'
+import SmoothScroll from './components/SmoothScroll'
 
 export const metadata: Metadata = {
   title: {
     template: '%s | Olyce Travel',
     default: 'Olyce Travel | Premium Sri Lanka Tours',
   },
+  icons: {
+    icon: [
+      {url: '/favicon.ico', sizes: 'any'},
+      {url: '/icon-32.png', sizes: '32x32', type: 'image/png'},
+      {url: '/icon-16.png', sizes: '16x16', type: 'image/png'},
+    ],
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/site.webmanifest',
   description: 'Discover handcrafted Sri Lanka travel packages: cultural tours, wildlife safaris, beach escapes, and hill country adventures.',
 }
 
@@ -57,11 +68,19 @@ const heebo = Heebo({
   display: 'swap',
 })
 
+const instrumentSerif = Instrument_Serif({
+  variable: '--font-instrument-serif',
+  weight: '400',
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  display: 'swap',
+})
+
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${ibmPlexMono.variable} ${manrope.variable} ${playfairDisplay.variable} ${lato.variable} ${heebo.variable} scroll-smooth`}
+      className={`${inter.variable} ${ibmPlexMono.variable} ${manrope.variable} ${playfairDisplay.variable} ${lato.variable} ${heebo.variable} ${instrumentSerif.variable} scroll-smooth`}
       suppressHydrationWarning
     >
       <head>
@@ -74,6 +93,8 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
       </head>
       <body className="bg-background text-on-background selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
+          <Preloader />
+          <SmoothScroll />
           <Navbar />
           {children}
           <FloatingInquireButton />

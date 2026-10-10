@@ -3,24 +3,29 @@
 
 @layer base {
   :root {
-    --color-background: #f9f9f9;
-    --color-on-background: #1a1c1c;
-    --color-surface: #f9f9f9;
-    --color-on-surface: #1a1c1c;
-    --color-surface-container: #eeeeee;
-    --color-surface-variant: #e2e2e2;
-    --color-surface-container-highest: #e2e2e2;
-    --color-outline-variant: #d2c3c3;
-    --color-primary: #6d5a5a;
+    --color-background: #0f1f1c;
+    --color-on-background: #f2efe6;
+    --color-surface: #0f1f1c;
+    --color-on-surface: #f2efe6;
+    --color-surface-container: #173a36;
+    --color-surface-variant: #1d4640;
+    --color-surface-container-highest: #246b5a;
+    --color-outline-variant: #3a6a60;
+    --color-primary: #d6a95c;
 
     /* Reference-site palette (GSM-style UI) */
-    --gsm-teal: #007f7f;
-    --gsm-gold: #f4b400;
+    --gsm-teal: #f2efe6;
+    --gsm-gold: #d6a95c;
     --gsm-orange: #ff9c34;
-    --gsm-body: #6f747e;
-    --gsm-footer: #064949;
+    --gsm-body: #c9c6bb;
+    --gsm-footer: #0a1614;
     --gsm-topbar: #0b1220;
-    --gsm-feature: rgba(8, 28, 48, 0.88);
+    --gsm-feature: rgba(10, 10, 10, 0.88);
+    --olyce-bg: #0f1f1c;
+    --olyce-surface: #173a36;
+    --olyce-green: #246b5a;
+    --olyce-ink: #f2efe6;
+    --olyce-muted: #b9b6aa;
   }
 
   .dark {
@@ -46,8 +51,8 @@
   }
   
   body::selection {
-    background-color: #f4dada;
-    color: #725e5e;
+    background-color: #d6a95c;
+    color: #0f1f1c;
   }
 
   /* Body paragraphs justified; hero uses text-left / text-center utilities to override */
@@ -387,11 +392,11 @@ video {
   border: none;
 }
 
-/* Home page — reference travel-site look */
+/* Dark cinematic look */
 .olyce-home {
-  font-family: var(--font-heebo), Helvetica, Arial, sans-serif;
-  color: var(--gsm-body);
-  background: #fff;
+  font-family: var(--font-inter), Helvetica, Arial, sans-serif;
+  color: var(--olyce-muted);
+  background: var(--olyce-bg);
 }
 
 .olyce-home h1,
@@ -400,94 +405,97 @@ video {
 .olyce-home h4,
 .olyce-home h5,
 .olyce-home .font-heading {
-  font-family: var(--font-lato), Helvetica, Arial, sans-serif;
+  font-family: var(--font-inter), Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--olyce-ink);
 }
 
-.olyce-home .btn-gold {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background: var(--gsm-gold);
-  color: #fff;
-  font-family: var(--font-lato), sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 1;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  padding: 14px 24px;
-  border-radius: 10px;
-  transition: background-color 0.25s ease, transform 0.25s ease;
+.serif-italic,
+.olyce-home h1.serif-italic,
+.olyce-home h2.serif-italic,
+.olyce-home h3.serif-italic {
+  font-family: var(--font-instrument-serif), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
-@media (min-width: 768px) {
-  .olyce-home .btn-gold {
-    font-size: 16px;
-    padding: 16px 32px;
-  }
-}
-
-.olyce-home .btn-gold:hover {
-  background: #e0a500;
-}
-
+.olyce-home .btn-gold,
 .olyce-home .btn-gold-sm {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: var(--gsm-gold);
-  color: #fff;
-  font-family: var(--font-lato), sans-serif;
-  font-weight: 600;
+  background: var(--olyce-ink);
+  color: var(--olyce-bg);
+  font-weight: 500;
   font-size: 13px;
   line-height: 1;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  padding: 12px 22px;
-  border-radius: 10px;
-  transition: background-color 0.25s ease;
+  padding: 14px 26px;
+  border-radius: 999px;
+  border: 1px solid var(--olyce-ink);
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
-@media (min-width: 768px) {
-  .olyce-home .btn-gold-sm {
-    font-size: 14px;
-    padding: 14px 30px;
-  }
+.olyce-home .btn-gold-sm {
+  background: transparent;
+  color: var(--olyce-ink);
+  font-size: 12px;
+  padding: 10px 20px;
+  border-color: rgba(242, 239, 230, 0.3);
 }
 
+.olyce-home .btn-gold:hover,
 .olyce-home .btn-gold-sm:hover {
-  background: #e0a500;
+  background: var(--gsm-gold);
+  border-color: var(--gsm-gold);
+  color: var(--olyce-bg);
 }
 
 .olyce-home .section-title {
-  color: var(--gsm-teal);
-  font-size: 32px;
-  font-weight: 600;
-  line-height: 1.2;
+  color: var(--olyce-ink);
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
 }
 
 @media (min-width: 768px) {
   .olyce-home .section-title {
-    font-size: 48px;
+    font-size: 64px;
   }
 }
 
 .olyce-home .tour-title {
-  color: var(--gsm-teal);
+  color: var(--olyce-ink);
   font-size: 22px;
-  font-weight: 600;
-  line-height: 1.25;
-}
-
-@media (min-width: 768px) {
-  .olyce-home .tour-title {
-    font-size: 28px;
-  }
+  font-weight: 500;
+  line-height: 1.2;
 }
 
 .olyce-home .travel-pattern {
-  background-color: #fff;
-  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23007f7f' fill-opacity='0.04'%3E%3Cpath d='M40 8l3 9h9l-7 5 3 9-8-6-8 6 3-9-7-5h9z'/%3E%3Ccircle cx='16' cy='56' r='3'/%3E%3Ccircle cx='64' cy='56' r='3'/%3E%3Cpath d='M10 30h8v2h-8zm52 0h8v2h-8z'/%3E%3C/g%3E%3C/svg%3E");
+  background: var(--olyce-bg);
 }
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(242, 239, 230, 0.25);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 12px;
+  line-height: 1;
+  color: var(--olyce-ink);
+  background: rgba(242, 239, 230, 0.04);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.pill:hover,
+.pill-active {
+  background: var(--gsm-gold);
+  border-color: var(--gsm-gold);
+  color: #0f1f1c;
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }

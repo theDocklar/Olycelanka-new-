@@ -81,7 +81,7 @@ export default function Testimonials() {
           <p className="text-center font-heading text-[18px] sm:text-[24px] md:text-[32px] font-semibold text-white leading-snug mb-6 sm:mb-8 max-w-3xl">
             “{current.quote}”
           </p>
-          <span className="font-heading text-[18px] font-semibold text-[var(--gsm-gold)]">
+          <span className="font-heading text-[18px] font-semibold text-[#ffffff]">
             {current.author}
           </span>
           <span className="text-[14px] text-white/75 mt-1">{current.location}</span>
@@ -95,7 +95,7 @@ export default function Testimonials() {
               onClick={() => setCurrentIndex(idx)}
               aria-label={`Go to testimonial ${idx + 1}`}
               className={`h-2.5 w-2.5 rounded-full transition-colors ${
-                idx === currentIndex ? 'bg-[var(--gsm-gold)]' : 'bg-white/40'
+                idx === currentIndex ? 'bg-[#ffffff]' : 'bg-white/40'
               }`}
             />
           ))}

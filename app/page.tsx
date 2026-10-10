@@ -1,22 +1,32 @@
 import HeroSection from './components/HeroSection'
 import WelcomeSection from './components/WelcomeSection'
 import DestinationsCarousel from './components/DestinationsCarousel'
+import JourneysSection from './components/JourneysSection'
 import Testimonials from './components/Testimonials'
-import EditSection from './components/EditSection'
 import Footer from './components/Footer'
 import { getPackages } from '../lib/data'
 
 export default async function Page() {
   const packages = await getPackages()
+  const first = packages[0]
+  const featured = first
+    ? {
+        name: first.name,
+        slug: first.slug,
+        duration: first.duration,
+        category: first.category,
+        image: first.images?.[0]?.asset?.url ?? null,
+      }
+    : undefined
 
   return (
     <div className="olyce-home">
       <main>
-        <HeroSection />
-        <WelcomeSection />
+        <HeroSection featured={featured} />
+        <WelcomeSection tourCount={packages.length} />
         <DestinationsCarousel destinations={packages} />
+        <JourneysSection packages={packages} />
         <Testimonials />
-        <EditSection />
       </main>
       <Footer />
     </div>

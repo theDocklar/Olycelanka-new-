@@ -1,15 +1,17 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const NAV_LINKS = [
-  { label: 'Destinations', href: '/#featured' },
-  { label: 'Journeys', href: '/journeys' },
-  { label: 'The Edit', href: '/edit' },
-  { label: 'Our Story', href: '/story' },
+  { label: 'Tours', href: '/tours' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'About', href: '/about' },
+  { label: 'Enquiry', href: '/enquiry' },
+  { label: 'Contact', href: '/contact-us' },
 ]
 
 export default function Navbar({ forceSolid = false }: { forceSolid?: boolean }) {
@@ -42,32 +44,19 @@ export default function Navbar({ forceSolid = false }: { forceSolid?: boolean })
       <header
         id="navbar"
         className={`z-50 fixed top-0 w-full transition-all duration-300 ${
-          solid ? 'bg-white shadow-sm' : 'bg-transparent'
+          solid ? 'bg-[#0f1f1c]/85 backdrop-blur-md border-b border-white/5' : 'bg-transparent'
         }`}
       >
-        <div className="flex justify-between items-center max-w-[1280px] mx-auto px-5 sm:px-8 h-[70px] sm:h-[78px]">
-          <Link
-            href="/"
-            className={`font-headline-md text-[18px] uppercase tracking-[0.14em] font-semibold transition-colors ${
-              solid ? 'text-[var(--gsm-teal)]' : 'text-white'
-            }`}
-          >
-            Olyce
-          </Link>
-
-          <nav className="hidden lg:flex items-center gap-8">
+        <div className="relative flex justify-between items-center max-w-[1440px] mx-auto px-5 sm:px-8 h-[64px] sm:h-[72px]">
+          <nav className="hidden lg:flex items-center gap-6 flex-1">
             {NAV_LINKS.map((l) => {
               const active = isActive(l.href)
               return (
                 <Link
                   key={l.label}
                   href={l.href}
-                  className={`font-[family-name:var(--font-lato)] text-[14px] font-semibold transition-colors ${
-                    active
-                      ? 'text-[var(--gsm-gold)]'
-                      : solid
-                        ? 'text-[#333] hover:text-[var(--gsm-gold)]'
-                        : 'text-white hover:text-[var(--gsm-gold)]'
+                  className={`text-[12px] transition-colors ${
+                    active ? 'text-[var(--gsm-gold)]' : 'text-[#f2efe6] hover:text-[var(--gsm-gold)]'
                   }`}
                 >
                   {l.label}
@@ -76,12 +65,24 @@ export default function Navbar({ forceSolid = false }: { forceSolid?: boolean })
             })}
           </nav>
 
+          <Link
+            href="/"
+            aria-label="Olyce home"
+            className="shrink-0 lg:absolute lg:left-1/2 lg:-translate-x-1/2"
+          >
+            <Image src="/logo/olyce-horizontal-dark.svg" alt="Olyce" width={1150} height={300} priority className="h-11 sm:h-12 w-auto" />
+          </Link>
+
+          <div className="hidden lg:flex flex-1 justify-end">
+            <Link href="/enquiry" className="pill">
+              Enquire Now
+            </Link>
+          </div>
+
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            className={`lg:hidden w-10 h-10 flex flex-col justify-center items-center gap-[5px] ${
-              solid ? 'text-[#333]' : 'text-white'
-            }`}
+            className="lg:hidden w-10 h-10 flex flex-col justify-center items-center gap-[5px] text-[#f2efe6]"
           >
             <motion.span
               animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
@@ -105,7 +106,7 @@ export default function Navbar({ forceSolid = false }: { forceSolid?: boolean })
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-white pt-24 sm:pt-28 px-5 sm:px-8"
+            className="fixed inset-0 z-40 bg-[#0f1f1c] pt-24 sm:pt-28 px-5 sm:px-8"
           >
             <nav className="flex flex-col gap-1">
               {NAV_LINKS.map((l) => (
@@ -113,7 +114,7 @@ export default function Navbar({ forceSolid = false }: { forceSolid?: boolean })
                   key={l.label}
                   href={l.href}
                   onClick={() => setMenuOpen(false)}
-                  className="font-[family-name:var(--font-lato)] text-lg font-semibold text-[var(--gsm-teal)] py-3 border-b border-black/5"
+                  className="serif-italic text-3xl text-[#f2efe6] py-3 border-b border-white/10"
                 >
                   {l.label}
                 </Link>

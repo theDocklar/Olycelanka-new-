@@ -1,3 +1,5 @@
+import curatedPackageData from '../Tours/packages.json'
+
 export interface ItineraryDay {
   day: string
   description: string
@@ -28,7 +30,10 @@ export interface Package {
   standardHotel?: Hotel
   premiumHotel?: Hotel
   mapImage?: { _id: string; url: string }
+  ratings?: Partial<Record<'pace' | 'comfort' | 'culture' | 'wildlife' | 'adventure', number>>
 }
+
+const curatedPackages: Package[] = curatedPackageData
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
@@ -87,6 +92,7 @@ function transformPackage(dbPkg: any): Package {
       image: dbPkg.premiumHotel.image ? { _id: dbPkg.premiumHotel.image.public_id || 'h-p', url: dbPkg.premiumHotel.image.url } : undefined
     } : undefined,
     mapImage: dbPkg.mapImage ? { _id: dbPkg.mapImage.public_id || 'map', url: dbPkg.mapImage.url } : undefined,
+    ratings: dbPkg.ratings || undefined,
   };
 }
 
@@ -95,28 +101,31 @@ export async function getPackages(): Promise<Package[]> {
     const res = await fetch(`${API_URL}/packages`, { next: { revalidate: 0 } });
     if (!res.ok) {
       console.error('Failed to fetch packages', res.status);
-      return [];
+      return curatedPackages;
     }
     const data = await res.json();
-    return data.filter((p: any) => p.status === 'published' || !p.status).map(transformPackage);
+    const remotePackages: Package[] = data.filter((p: any) => p.status === 'published' || !p.status).map(transformPackage);
+    const remoteSlugs = new Set(remotePackages.map((p) => p.slug));
+    return [...remotePackages, ...curatedPackages.filter((p) => !remoteSlugs.has(p.slug))];
   } catch (error) {
     console.error('Error fetching packages:', error);
-    return [];
+    return curatedPackages;
   }
 }
 
 export async function getPackageBySlug(slug: string): Promise<Package | undefined> {
+  const curatedPackage = curatedPackages.find((p) => p.slug === slug);
   try {
     const res = await fetch(`${API_URL}/packages/${slug}`, { next: { revalidate: 0 } });
     if (!res.ok) {
-      if (res.status === 404) return undefined;
+      if (res.status === 404) return curatedPackage;
       console.error(`Failed to fetch package ${slug}`, res.status);
-      return undefined;
+      return curatedPackage;
     }
     const data = await res.json();
     return transformPackage(data);
   } catch (error) {
     console.error(`Error fetching package ${slug}:`, error);
-    return undefined;
+    return curatedPackage;
   }
 }

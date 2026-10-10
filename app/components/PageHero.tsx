@@ -16,7 +16,7 @@ export default function PageHero({
   imageAlt,
 }: PageHeroProps) {
   return (
-    <section className="relative w-full min-h-[320px] h-[42vh] sm:min-h-[380px] sm:h-[48vh] max-h-[560px] overflow-hidden mt-[70px] sm:mt-[78px]">
+    <section className="relative w-full min-h-[320px] h-[42vh] sm:min-h-[380px] sm:h-[48vh] max-h-[560px] overflow-hidden mt-[64px] sm:mt-[72px]">
       <Image
         src={imageSrc}
         alt={imageAlt}
@@ -30,7 +30,7 @@ export default function PageHero({
       <div className="relative z-10 flex h-full w-full items-center justify-center">
         <div className="w-full max-w-[1280px] mx-auto px-5 sm:px-8 py-10 sm:py-14 text-center">
           {eyebrow ? (
-            <p className="hero-copy text-center text-[11px] sm:text-[12px] uppercase tracking-[1.2px] font-semibold text-[var(--gsm-gold)] mb-2 sm:mb-3">
+            <p className="hero-copy text-center text-[11px] sm:text-[12px] uppercase tracking-[1.2px] font-semibold text-[#ffffff] mb-2 sm:mb-3">
               {eyebrow}
             </p>
           ) : null}

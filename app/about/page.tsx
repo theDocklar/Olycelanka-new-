@@ -7,7 +7,7 @@ import { MapPinned, Layers, Headset } from 'lucide-react'
 export default function StoryPage() {
   return (
     <div className="olyce-home">
-      <main className="grow bg-white pb-16 sm:pb-24">
+      <main className="grow bg-[var(--olyce-bg)] pb-16 sm:pb-24">
         <PageHero
           eyebrow="About Olyce"
           title="Our Story"
@@ -34,7 +34,7 @@ export default function StoryPage() {
                     structure behind the scenes.
                   </p>
                 </div>
-                <Link href="/#featured" className="btn-gold-sm mt-7 sm:mt-8">
+                <Link href="/tours" className="btn-gold-sm mt-7 sm:mt-8">
                   Explore Tours <span aria-hidden>→</span>
                 </Link>
               </div>

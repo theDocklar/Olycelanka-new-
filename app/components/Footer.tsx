@@ -1,4 +1,6 @@
+import Image from 'next/image'
 import Link from 'next/link'
+import { SITE, whatsappLink } from '../../lib/site'
 import {
   Plane,
   MapPin,
@@ -46,11 +48,8 @@ export default function Footer() {
       <div className="relative z-10 max-w-[1280px] mx-auto px-5 sm:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 pb-10 sm:pb-12 border-b border-white/10">
           <div className="w-full sm:col-span-2 lg:col-span-1">
-            <Link
-              href="/"
-              className="font-headline-md text-[20px] tracking-[0.14em] uppercase text-white block mb-4"
-            >
-              Olyce
+            <Link href="/" aria-label="Olyce home" className="block mb-4">
+              <Image src="/logo/olyce-horizontal-dark.svg" alt="Olyce" width={1150} height={300} className="h-14 w-auto -ml-3" />
             </Link>
             <p
               className="w-full text-[14px] font-light text-white/70 leading-relaxed text-justify"
@@ -62,32 +61,32 @@ export default function Footer() {
           </div>
 
           <div>
-            <h5 className="font-heading text-[18px] font-semibold text-[var(--gsm-gold)] mb-4 sm:mb-5">
+            <h5 className="font-heading text-[18px] font-semibold text-[#ffffff] mb-4 sm:mb-5">
               Quick Links
             </h5>
             <ul className="space-y-3 text-[14px] text-white/75">
               <li>
-                <Link href="/" className="hover:text-[var(--gsm-gold)] transition-colors">
+                <Link href="/" className="hover:text-[#ffffff] transition-colors">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/story" className="hover:text-[var(--gsm-gold)] transition-colors">
+                <Link href="/about" className="hover:text-[#ffffff] transition-colors">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/#featured" className="hover:text-[var(--gsm-gold)] transition-colors">
+                <Link href="/tours" className="hover:text-[#ffffff] transition-colors">
                   Tours
                 </Link>
               </li>
               <li>
-                <Link href="/journeys" className="hover:text-[var(--gsm-gold)] transition-colors">
+                <Link href="/tours" className="hover:text-[#ffffff] transition-colors">
                   Journeys
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-[var(--gsm-gold)] hover:text-white transition-colors">
+                <Link href="/privacy-policy" className="hover:text-[#ffffff] transition-colors">
                   Privacy Policy
                 </Link>
               </li>
@@ -95,37 +94,52 @@ export default function Footer() {
           </div>
 
           <div>
-            <h5 className="font-heading text-[18px] font-semibold text-[var(--gsm-gold)] mb-4 sm:mb-5">
+            <h5 className="font-heading text-[18px] font-semibold text-[#ffffff] mb-4 sm:mb-5">
               Explore
             </h5>
             <ul className="space-y-3 text-[14px] text-white/75">
               <li>
-                <Link href="/edit" className="hover:text-[var(--gsm-gold)] transition-colors">
-                  How It Works
-                </Link>
-              </li>
-              <li>
-                <Link href="/journeys" className="hover:text-[var(--gsm-gold)] transition-colors">
+                <Link href="/tours" className="hover:text-[#ffffff] transition-colors">
                   All Packages
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-[var(--gsm-gold)] transition-colors">
-                  Terms of Service
+                <Link href="/terms" className="hover:text-[#ffffff] transition-colors">
+                  Terms &amp; Conditions
+                </Link>
+              </li>
+              <li>
+                <Link href="/refund-policy" className="hover:text-[#ffffff] transition-colors">
+                  Refund Policy
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h5 className="font-heading text-[18px] font-semibold text-[var(--gsm-gold)] mb-4 sm:mb-5">
+            <h5 className="font-heading text-[18px] font-semibold text-[#ffffff] mb-4 sm:mb-5">
               Contact Info
             </h5>
             <ul className="space-y-3 text-[14px] text-white/75">
-              <li>Sri Lanka</li>
+              <li>{SITE.address}</li>
               <li>
-                <Link href="#" className="hover:text-[var(--gsm-gold)] transition-colors">
-                  Make an Enquiry
+                <a href={`tel:${SITE.phoneTel}`} className="hover:text-[#ffffff] transition-colors">
+                  {SITE.phoneDisplay}
+                </a>
+              </li>
+              <li>
+                <a href={`mailto:${SITE.email}`} className="hover:text-[#ffffff] transition-colors">
+                  {SITE.email}
+                </a>
+              </li>
+              <li>
+                <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="hover:text-[#ffffff] transition-colors">
+                  WhatsApp us
+                </a>
+              </li>
+              <li>
+                <Link href="/contact-us" className="hover:text-[#ffffff] transition-colors">
+                  Contact Us
                 </Link>
               </li>
             </ul>

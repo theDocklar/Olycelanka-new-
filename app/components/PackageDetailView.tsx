@@ -4,13 +4,6 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { loadStripe } from '@stripe/stripe-js';
-import { Elements } from '@stripe/react-stripe-js';
-import { createBookingRecord, createPaymentIntent } from '@/lib/api';
-import StripePaymentForm from './StripePaymentForm';
-
-// Initialize Stripe
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
 
 // Dynamically import InteractiveMap to avoid SSR issues with Leaflet
 const InteractiveMap = dynamic(() => import('./InteractiveMap'), {
@@ -65,155 +58,105 @@ interface PackageData {
   standardHotel?: Hotel;
   premiumHotel?: Hotel;
   mapImage?: any;
+  ratings?: Partial<Record<'pace' | 'comfort' | 'culture' | 'wildlife' | 'adventure', number>>;
 }
 
 export default function PackageDetailView({ packageData }: { packageData: PackageData }) {
-  const [isPremium, setIsPremium] = useState(false);
+  const [activeImage, setActiveImage] = useState(0);
   const [activeTab, setActiveTab] = useState<'Itinerary' | 'Inclusions' | 'Hotels' | 'Map'>('Itinerary');
-  const [showBookingModal, setShowBookingModal] = useState(false);
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
-  const [bookingId, setBookingId] = useState<string | null>(null);
-  const [clientSecret, setClientSecret] = useState<string | null>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [bookingForm, setBookingForm] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    travelDate: '',
-    numberOfGuests: 1,
-    tier: 'standard',
-    specialRequests: '',
+
+  const gallery = (packageData.images || []).map(getValidImageUrl).filter((u): u is string => Boolean(u));
+  const RATING_LABELS: [keyof NonNullable<PackageData['ratings']>, string][] = [
+    ['pace', 'Pace'],
+    ['comfort', 'Comfort'],
+    ['culture', 'Culture'],
+    ['wildlife', 'Wildlife'],
+    ['adventure', 'Adventure'],
+  ];
+  const ratingRows = RATING_LABELS.flatMap(([key, label]) => {
+    const v = packageData.ratings?.[key];
+    return typeof v === 'number' ? [[label, Math.max(0, Math.min(5, Math.round(v)))] as [string, number]] : [];
   });
 
-  const currentPrice = isPremium ? packageData.pricePremium : packageData.priceStandard;
-  const totalPrice = currentPrice * bookingForm.numberOfGuests;
-
-  const handleBookingSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsProcessing(true);
-    setErrorMessage(null);
-
-    try {
-      // Calculate end date based on duration
-      const startDate = new Date(bookingForm.travelDate);
-      const durationDays = parseInt(packageData.duration.split(' ')[0]) || 7;
-      const endDate = new Date(startDate);
-      endDate.setDate(startDate.getDate() + durationDays);
-
-      // Split full name into first and last name
-      const nameParts = bookingForm.fullName.trim().split(' ');
-      const firstName = nameParts[0] || '';
-      const lastName = nameParts.slice(1).join(' ') || firstName;
-
-      // Create booking record with correct structure
-      const bookingData = {
-        packageId: packageData._id,
-        packageSnapshot: {
-          name: packageData.name,
-          tierSelected: bookingForm.tier,
-        },
-        customer: {
-          firstName: firstName,
-          lastName: lastName,
-          email: bookingForm.email,
-          phone: bookingForm.phone,
-          specialRequests: bookingForm.specialRequests || undefined,
-        },
-        travelDates: {
-          startDate: bookingForm.travelDate,
-          endDate: endDate.toISOString().split('T')[0],
-        },
-        travelers: {
-          adults: bookingForm.numberOfGuests,
-          children: 0,
-        },
-        financials: {
-          subTotal: totalPrice,
-          taxes: 0,
-          totalAmount: totalPrice,
-          currency: 'USD',
-        },
-      };
-
-      const booking = await createBookingRecord(bookingData);
-      setBookingId(booking._id);
-
-      // Create payment intent
-      const paymentIntent = await createPaymentIntent(booking._id);
-      setClientSecret(paymentIntent.clientSecret);
-
-      // Show payment modal
-      setShowBookingModal(false);
-      setShowPaymentModal(true);
-    } catch (error: any) {
-      setErrorMessage(error.response?.data?.error || 'Failed to create booking. Please try again.');
-    } finally {
-      setIsProcessing(false);
-    }
-  };
-
-  const handlePaymentSuccess = () => {
-    setShowPaymentModal(false);
-    // Reset form
-    setBookingForm({
-      fullName: '',
-      email: '',
-      phone: '',
-      travelDate: '',
-      numberOfGuests: 1,
-      tier: 'standard',
-      specialRequests: '',
-    });
-  };
-
-  const handlePaymentCancel = () => {
-    setShowPaymentModal(false);
-    setShowBookingModal(true);
-    setClientSecret(null);
-  };
+  const enquiryHref = `/enquiry?tour=${encodeURIComponent(packageData.slug)}`;
 
   return (
-    <div className="relative w-full -mt-24 md:-mt-32">
+    <div className="relative w-full">
       
-      {/* Full-Width Hero Image */}
-      <div className="relative w-full h-[58vh] sm:h-[70vh] md:h-[75vh] overflow-hidden">
-        {packageData.images && packageData.images.length > 0 && getValidImageUrl(packageData.images[0]) ? (
-           <Image 
-             src={getValidImageUrl(packageData.images[0])!}
-             alt={packageData.name}
-             fill
-             priority
-             className="object-cover"
-             sizes="100vw"
-           />
-        ) : (
-          <div className="w-full h-full bg-surface-container flex items-center justify-center">
-            <span className="font-label-sm text-on-surface/40 italic">{packageData.name}</span>
-          </div>
-        )}
-        
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/70"></div>
-        
-        {/* Back Link */}
-        <div className="absolute top-24 sm:top-28 md:top-36 left-0 right-0 max-w-container-max mx-auto px-margin-mobile md:px-gutter z-10">
-          <Link href="/#featured" className="inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors font-label-sm uppercase tracking-widest text-xs">
-            <span className="material-symbols-outlined text-sm">arrow_left_alt</span> All Packages
-          </Link>
-        </div>
-        
-        {/* Package Info at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 max-w-container-max mx-auto px-margin-mobile md:px-gutter pb-8 sm:pb-12 md:pb-16 z-10">
-          <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
-            <span className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-sm text-xs font-label-sm uppercase tracking-widest text-white">{packageData.duration}</span>
-            {packageData.category && (
-              <span className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-sm text-xs font-label-sm uppercase tracking-widest text-white">{packageData.category}</span>
+      {/* Split hero: gallery left, details right */}
+      <div className="w-full max-w-[1440px] mx-auto px-margin-mobile md:px-gutter pt-6 sm:pt-10">
+        <Link href="/tours" className="inline-flex items-center gap-2 text-on-surface/70 hover:text-on-surface transition-colors text-xs mb-6">
+          <span aria-hidden>←</span> Back to Catalog
+        </Link>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+          <div>
+            <div className="relative w-full aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5] overflow-hidden bg-surface-container">
+              {gallery[activeImage] ? (
+                <Image
+                  key={gallery[activeImage]}
+                  src={gallery[activeImage]}
+                  alt={packageData.name}
+                  fill
+                  priority
+                  className="object-cover animate-[fadeInUp_0.5s_ease-out]"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <span className="text-on-surface/40 italic">{packageData.name}</span>
+                </div>
+              )}
+            </div>
+            {gallery.length > 1 && (
+              <div className="flex justify-center gap-2 mt-4">
+                {gallery.slice(0, 8).map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    aria-label={`Show image ${i + 1}`}
+                    onClick={() => setActiveImage(i)}
+                    className={`h-1.5 rounded-full transition-all ${i === activeImage ? 'w-6 bg-primary' : 'w-1.5 bg-on-surface/30'}`}
+                  />
+                ))}
+              </div>
             )}
           </div>
-          <h1 className="font-display-lg-mobile md:font-display-lg text-white font-semibold mb-0 tracking-tight text-[28px] sm:text-[40px] md:text-[56px] leading-tight">
-            {packageData.name}
-          </h1>
+
+          <div className="lg:pt-6">
+            <div className="flex flex-wrap gap-2 mb-5">
+              <span className="pill">{packageData.duration}</span>
+              {packageData.category && <span className="pill">{packageData.category}</span>}
+            </div>
+            <h1 className="serif-italic text-on-surface text-[44px] sm:text-[64px] leading-[1.02] mb-4">{packageData.name}</h1>
+            {packageData.description && (
+              <p className="text-[14px] leading-7 text-on-surface/75 mb-8 max-w-[560px]">{packageData.description}</p>
+            )}
+
+            {ratingRows.length > 0 && (
+              <div className="mb-8 max-w-[440px]">
+                <h3 className="text-sm text-on-surface mb-3">Characteristics</h3>
+                <ul className="divide-y divide-white/10 border-y border-white/10">
+                  {ratingRows.map(([label, value], i) => (
+                    <li key={label} className="flex items-center justify-between py-2.5 text-[12px] text-on-surface/80">
+                      <span>{i + 1}. {label}</span>
+                      <span className="flex gap-1" aria-label={`${value} out of 5`}>
+                        {[1, 2, 3, 4, 5].map((n) => (
+                          <span key={n} className={`h-1.5 w-1.5 rounded-full ${n <= value ? 'bg-primary' : 'bg-white/20'}`} />
+                        ))}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <Link
+              href={enquiryHref}
+              className="inline-flex px-8 py-4 bg-primary text-[#0f1f1c] rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
+            >
+              Inquire Now
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -405,65 +348,28 @@ export default function PackageDetailView({ packageData }: { packageData: Packag
         {/* Right Sticky Booking Sidebar — first on mobile for quicker booking */}
         <div className="w-full lg:w-1/3 lg:sticky lg:top-32 space-y-5 sm:space-y-6 order-1 lg:order-2">
           <div className="bg-surface-container/30 border border-outline-variant/30 rounded-xl p-5 sm:p-8 backdrop-blur-sm shadow-sm">
-            <h3 className="font-headline-md text-xl sm:text-2xl text-on-surface mb-5 sm:mb-6 font-semibold">Reserve Your Journey</h3>
-            
-            {/* Premium Toggle */}
-            <div className="flex bg-surface-variant/50 rounded-lg p-1 mb-6 sm:mb-8">
-              <button 
-                onClick={() => setIsPremium(false)}
-                className={`flex-1 py-2.5 sm:py-3 rounded-md font-label-sm text-xs uppercase tracking-widest transition-all duration-300 ${!isPremium ? 'bg-surface text-on-surface shadow-sm font-bold' : 'text-on-surface/60 hover:text-on-surface'}`}
-              >
-                Standard
-              </button>
-              <button 
-                onClick={() => setIsPremium(true)}
-                className={`flex-1 py-2.5 sm:py-3 rounded-md font-label-sm text-xs uppercase tracking-widest transition-all duration-300 ${isPremium ? 'bg-surface text-on-surface shadow-sm font-bold' : 'text-on-surface/60 hover:text-on-surface'}`}
-              >
-                Premium
-              </button>
-            </div>
-
-            {/* Price Display */}
-            <div className="flex items-end gap-2 mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-outline-variant/20">
-              <span className="font-display-lg text-4xl sm:text-5xl text-on-surface font-semibold">${currentPrice.toLocaleString()}</span>
-              <span className="font-label-sm text-sm text-on-surface/60 mb-1.5 sm:mb-2">/ person</span>
-            </div>
-
-            {/* Quick summary highlights */}
-            <ul className="space-y-4 mb-8">
-              <li className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-on-surface/50 text-xl">schedule</span>
-                <span className="font-body-md text-on-surface/80">{packageData.duration}</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-on-surface/50 text-xl">bed</span>
-                <span className="font-body-md text-on-surface/80">
-                  {isPremium ? '5-Star Luxury Accommodations' : '3-4 Star Handpicked Hotels'}
-                </span>
-              </li>
-              <li className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-on-surface/50 text-xl">restaurant</span>
-                <span className="font-body-md text-on-surface/80">Daily Breakfast Included</span>
-              </li>
+            <h3 className="font-headline-md text-xl sm:text-2xl text-on-surface mb-3 font-semibold">Interested in this journey?</h3>
+            <p className="text-[14px] leading-6 text-on-surface/75 mb-6">
+              Tell us your dates and group size and we will put together a tailored plan.
+            </p>
+            <ul className="space-y-3 mb-8 text-[14px] text-on-surface/80">
+              <li>{packageData.duration}</li>
+              {packageData.category && <li>{packageData.category}</li>}
             </ul>
-
-            <button 
-              onClick={() => setShowBookingModal(true)}
-              className="w-full py-4 bg-on-surface text-surface rounded-sm font-label-sm text-sm uppercase tracking-widest hover:bg-on-surface/90 transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+            <Link
+              href={enquiryHref}
+              className="w-full py-4 bg-primary text-[#0f1f1c] rounded-full text-sm font-medium hover:opacity-90 transition-opacity flex items-center justify-center"
             >
-              Begin Booking
-              <span className="material-symbols-outlined text-[18px]">arrow_right_alt</span>
-            </button>
-            
-
+              Inquire Now
+            </Link>
           </div>
-          
+
           {/* Need help card */}
           <div className="bg-surface-container/20 border border-outline-variant/20 rounded-xl p-6 text-center">
             <span className="material-symbols-outlined text-on-surface/30 text-3xl mb-2">support_agent</span>
             <h4 className="font-headline-sm text-on-surface font-bold mb-2">Need a tailored touch?</h4>
             <p className="font-body-sm text-on-surface/70 mb-4">Connect with our luxury travel concierge to customize this itinerary.</p>
-            <Link href="#" className="font-label-sm text-xs uppercase tracking-widest text-on-surface hover:text-primary transition-colors underline underline-offset-4">
+            <Link href="/contact-us" className="font-label-sm text-xs uppercase tracking-widest text-on-surface hover:text-primary transition-colors underline underline-offset-4">
               Contact Concierge
             </Link>
           </div>
@@ -471,193 +377,6 @@ export default function PackageDetailView({ packageData }: { packageData: Packag
 
         </div>
       </div>
-
-      {/* Booking Modal */}
-      {showBookingModal && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4" onClick={() => setShowBookingModal(false)}>
-          <div className="bg-background rounded-t-2xl sm:rounded-lg max-w-2xl w-full max-h-[92vh] overflow-y-auto shadow-2xl" onClick={(e) => e.stopPropagation()}>
-            <div className="p-5 sm:p-8 md:p-12">
-              <h2 className="font-headline-lg text-2xl sm:text-3xl md:text-4xl text-on-surface mb-6 sm:mb-8">Complete your booking</h2>
-
-              <form className="flex flex-col gap-6" onSubmit={handleBookingSubmit}>
-                {/* Full Name */}
-                <div>
-                  <label className="block font-label-sm text-sm text-on-surface/80 mb-2">Full Name</label>
-                  <input
-                    type="text"
-                    placeholder="Your full name"
-                    value={bookingForm.fullName}
-                    onChange={(e) => setBookingForm({...bookingForm, fullName: e.target.value})}
-                    className="w-full px-4 py-3 bg-surface-container border border-outline-variant rounded-sm text-on-surface placeholder:text-on-surface/40 focus:outline-none focus:border-on-surface transition-colors"
-                    required
-                  />
-                </div>
-
-                {/* Email */}
-                <div>
-                  <label className="block font-label-sm text-sm text-on-surface/80 mb-2">Email</label>
-                  <input
-                    type="email"
-                    placeholder="your@email.com"
-                    value={bookingForm.email}
-                    onChange={(e) => setBookingForm({...bookingForm, email: e.target.value})}
-                    className="w-full px-4 py-3 bg-surface-container border border-outline-variant rounded-sm text-on-surface placeholder:text-on-surface/40 focus:outline-none focus:border-on-surface transition-colors"
-                    required
-                  />
-                </div>
-
-                {/* Phone */}
-                <div>
-                  <label className="block font-label-sm text-sm text-on-surface/80 mb-2">Phone Number</label>
-                  <input
-                    type="tel"
-                    placeholder="+1 234 567 8900"
-                    value={bookingForm.phone}
-                    onChange={(e) => setBookingForm({...bookingForm, phone: e.target.value})}
-                    className="w-full px-4 py-3 bg-surface-container border border-outline-variant rounded-sm text-on-surface placeholder:text-on-surface/40 focus:outline-none focus:border-on-surface transition-colors"
-                    required
-                  />
-                </div>
-
-                {/* Travel Date */}
-                <div>
-                  <label className="block font-label-sm text-sm text-on-surface/80 mb-2">Travel Date</label>
-                  <input
-                    type="date"
-                    value={bookingForm.travelDate}
-                    onChange={(e) => setBookingForm({...bookingForm, travelDate: e.target.value})}
-                    className="w-full px-4 py-3 bg-surface-container border border-outline-variant rounded-sm text-on-surface focus:outline-none focus:border-on-surface transition-colors"
-                    required
-                  />
-                </div>
-
-                {/* Number of Guests */}
-                <div>
-                  <label className="block font-label-sm text-sm text-on-surface/80 mb-2">Number of Guests</label>
-                  <input
-                    type="number"
-                    min="1"
-                    value={bookingForm.numberOfGuests}
-                    onChange={(e) => setBookingForm({...bookingForm, numberOfGuests: parseInt(e.target.value) || 1})}
-                    className="w-full px-4 py-3 bg-surface-container border border-outline-variant rounded-sm text-on-surface focus:outline-none focus:border-on-surface transition-colors"
-                    required
-                  />
-                </div>
-
-                {/* Selected Tier */}
-                <div>
-                  <label className="block font-label-sm text-sm text-on-surface/80 mb-3">Selected Tier</label>
-                  <div className="flex gap-6">
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="radio"
-                        name="tier"
-                        value="standard"
-                        checked={bookingForm.tier === 'standard'}
-                        onChange={(e) => setBookingForm({...bookingForm, tier: e.target.value})}
-                        className="w-5 h-5 accent-on-surface"
-                      />
-                      <span className="font-body-md text-on-surface">Standard</span>
-                    </label>
-                    <label className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="radio"
-                        name="tier"
-                        value="premium"
-                        checked={bookingForm.tier === 'premium'}
-                        onChange={(e) => setBookingForm({...bookingForm, tier: e.target.value})}
-                        className="w-5 h-5 accent-on-surface"
-                      />
-                      <span className="font-body-md text-on-surface">Premium</span>
-                    </label>
-                  </div>
-                </div>
-
-                {/* Special Requests */}
-                <div>
-                  <label className="block font-label-sm text-sm text-on-surface/80 mb-2">Special Requests</label>
-                  <textarea
-                    placeholder="Dietary requirements, accessibility needs, celebrations..."
-                    value={bookingForm.specialRequests}
-                    onChange={(e) => setBookingForm({...bookingForm, specialRequests: e.target.value})}
-                    rows={4}
-                    className="w-full px-4 py-3 bg-surface-container border border-outline-variant rounded-sm text-on-surface placeholder:text-on-surface/40 focus:outline-none focus:border-on-surface transition-colors resize-none"
-                  />
-                </div>
-
-                {/* Upload Documents */}
-                <div>
-                  <label className="block font-label-sm text-sm text-on-surface/80 mb-2">Upload Supporting Documents (optional)</label>
-                  <div className="border-2 border-dashed border-outline-variant rounded-sm p-8 text-center bg-surface-container/30 hover:bg-surface-container/50 transition-colors cursor-pointer">
-                    <p className="font-body-md text-on-surface/60 italic">Drop files here or click to browse</p>
-                    <p className="font-label-sm text-xs text-on-surface/40 mt-1">(Passport scan, travel insurance, dietary PDF)</p>
-                  </div>
-                </div>
-
-                {/* Total Price */}
-                <div className="bg-surface-container border border-outline-variant rounded-sm p-4 mt-2">
-                  <p className="font-body-lg text-on-surface">
-                    {bookingForm.numberOfGuests} guest{bookingForm.numberOfGuests > 1 ? 's' : ''} × ${bookingForm.tier === 'premium' ? packageData.pricePremium : packageData.priceStandard}pp = <span className="font-bold">${totalPrice} total</span>
-                  </p>
-                </div>
-
-                {/* Error Message */}
-                {errorMessage && (
-                  <div className="bg-red-50 border border-red-200 rounded-sm p-4 mt-2">
-                    <p className="text-red-800 text-sm">{errorMessage}</p>
-                  </div>
-                )}
-
-                {/* Action Buttons */}
-                <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4 mt-4">
-                  <button
-                    type="button"
-                    onClick={() => setShowBookingModal(false)}
-                    disabled={isProcessing}
-                    className="flex-1 px-6 py-3 border border-outline-variant text-on-surface rounded-sm font-label-sm text-xs uppercase tracking-widest hover:bg-surface-variant transition-colors disabled:opacity-50"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={isProcessing}
-                    className="flex-1 px-6 py-3 bg-on-surface text-surface rounded-sm font-label-sm text-xs uppercase tracking-widest hover:bg-on-surface/90 transition-colors shadow-lg flex items-center justify-center gap-2 disabled:opacity-50"
-                  >
-                    {isProcessing ? (
-                      <>
-                        <span className="animate-spin material-symbols-outlined text-sm">progress_activity</span>
-                        Processing...
-                      </>
-                    ) : (
-                      <>
-                        Confirm Booking <span className="material-symbols-outlined text-sm">arrow_right_alt</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Payment Modal */}
-      {showPaymentModal && clientSecret && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
-          <div className="bg-background rounded-t-2xl sm:rounded-lg max-w-2xl w-full max-h-[92vh] overflow-y-auto shadow-2xl">
-            <div className="p-5 sm:p-8 md:p-12">
-              <h2 className="font-headline-lg text-2xl sm:text-3xl md:text-4xl text-on-surface mb-6 sm:mb-8">Payment</h2>
-              <Elements stripe={stripePromise} options={{ clientSecret }}>
-                <StripePaymentForm
-                  amount={totalPrice}
-                  onSuccess={handlePaymentSuccess}
-                  onCancel={handlePaymentCancel}
-                />
-              </Elements>
-            </div>
-          </div>
-        </div>
-      )}
 
     </div>
   );
