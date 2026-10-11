@@ -5,16 +5,7 @@ import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 
-type HeroTour = {
-  name: string
-  slug: string
-  duration: string
-  category?: string | null
-  description?: string
-  image?: string | null
-}
-
-export default function HeroSection({ featured }: { featured?: HeroTour }) {
+export default function HeroSection() {
   const [videoLoaded, setVideoLoaded] = useState(false)
   const [videoError, setVideoError] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -87,31 +78,6 @@ export default function HeroSection({ featured }: { featured?: HeroTour }) {
           Unhurried.
         </motion.h1>
       </div>
-
-      {featured ? (
-        <Link
-          href={`/tour/${featured.slug}`}
-          className="absolute z-20 left-4 sm:left-8 bottom-24 sm:bottom-8 w-[230px] sm:w-[270px] rounded-2xl bg-[#0f1f1c]/90 backdrop-blur border border-white/10 p-3 hover:border-[#d6a95c] transition-colors"
-        >
-          <p className="text-[10px] uppercase tracking-[0.08em] text-[#d6a95c] leading-tight">Tour of the month</p>
-          <p className="text-[15px] text-[#f2efe6] mt-1 mb-2 leading-snug">{featured.name}</p>
-          {featured.image ? (
-            <div className="relative aspect-[16/10] w-full mb-2 overflow-hidden rounded-xl">
-              <Image src={featured.image} alt={featured.name} fill className="object-cover" sizes="270px" />
-            </div>
-          ) : null}
-          {featured.description ? (
-            <p className="text-[11px] leading-[1.5] text-[#b9b6aa] line-clamp-2 mb-2">{featured.description}</p>
-          ) : null}
-          <p className="flex items-center justify-between text-[11px] text-[#f2efe6]">
-            <span>
-              {featured.duration}
-              {featured.category ? ` · ${featured.category}` : ''}
-            </span>
-            <span aria-hidden>→</span>
-          </p>
-        </Link>
-      ) : null}
 
       <div className="absolute z-20 bottom-8 left-1/2 -translate-x-1/2">
         <Link href="/tours" className="text-[12px] text-[#f2efe6] border-b border-[#f2efe6]/50 pb-1 hover:text-[#d6a95c] hover:border-[#d6a95c] transition-colors whitespace-nowrap">

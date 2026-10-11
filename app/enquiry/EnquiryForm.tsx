@@ -15,7 +15,7 @@ const input =
 const label = 'block text-[11px] uppercase tracking-[0.08em] text-[var(--olyce-muted)] mb-1'
 
 export default function EnquiryForm({ tours, defaultTour = '' }: { tours: string[]; defaultTour?: string }) {
-  const [sent, setSent] = useState(false)
+  const [preparedLink, setPreparedLink] = useState<string | null>(null)
   const [v, setV] = useState({
     tour: defaultTour,
     travellers: '',
@@ -30,7 +30,7 @@ export default function EnquiryForm({ tours, defaultTour = '' }: { tours: string
     e.preventDefault()
     const d = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>
     const message = [
-      'New enquiry from the Olyce website',
+      'New inquiry from the Olyce website',
       `Name: ${d.name}`,
       `Email: ${d.email}`,
       `Phone: ${d.phone || '-'}`,
@@ -42,8 +42,9 @@ export default function EnquiryForm({ tours, defaultTour = '' }: { tours: string
       `Heard about us: ${v.source || '-'}`,
       `Message: ${d.message || '-'}`,
     ].join('\n')
-    window.open(whatsappLink(message), '_blank', 'noopener,noreferrer')
-    setSent(true)
+    const link = whatsappLink(message)
+    setPreparedLink(link)
+    window.open(link, '_blank', 'noopener,noreferrer')
   }
 
   return (
@@ -86,12 +87,15 @@ export default function EnquiryForm({ tours, defaultTour = '' }: { tours: string
       </div>
 
       <div className="sm:col-span-2 flex flex-wrap items-center gap-4 pt-2">
-        <button type="submit" className="btn-gold">Send Enquiry <span aria-hidden>→</span></button>
-        <p className="text-[12px] text-[var(--olyce-muted)]">Opens WhatsApp with your details filled in. Just press send.</p>
+        <button type="submit" className="btn-gold">Send Inquiry via WhatsApp <span aria-hidden>→</span></button>
+        <p className="text-[12px] text-[var(--olyce-muted)]">Opens WhatsApp with your inquiry details ready to send to Olyce.</p>
       </div>
-      {sent ? (
+      {preparedLink ? (
         <p role="status" className="sm:col-span-2 text-[14px] text-[var(--gsm-gold)]">
-          Thank you. If WhatsApp did not open, message us directly and we will reply shortly.
+          Your inquiry is ready. Press Send in WhatsApp to send it to our team.{' '}
+          <a href={preparedLink} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">
+            Open prepared inquiry in WhatsApp
+          </a>
         </p>
       ) : null}
     </form>
